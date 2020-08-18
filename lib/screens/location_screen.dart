@@ -65,8 +65,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      var weatherdata = await weather.gelocationweather();
-                      Updateui(weatherdata);
+                      var weatherData = await weather.gelocationweather();
+                      Updateui(weatherData);
                     },
                     child: Icon(
                       Icons.near_me,
@@ -74,10 +74,15 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    onPressed: () async {
+                      var cityname = await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return CityScreen();
                       }));
+                      if (cityname != null) {
+                        var weatherdata = await weather.Getcityname(cityname);
+                        Updateui(weatherdata);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,

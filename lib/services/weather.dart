@@ -4,16 +4,23 @@ const APIkey = '0823f108c077b6e60715be1ba26bb971';
 const openmapurl = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
+  Future<dynamic> Getcityname(String cityname) async {
+    Networking helper =
+        Networking('$openmapurl?q=$cityname&appid=$APIkey&units=metric');
+    var weatherdata = await helper.getdata();
+    return weatherdata;
+  }
 
- Future<dynamic> gelocationweather() async {
-  Location mylocation = Location();
-  await mylocation.getCurrentlocation();
-  Networking helper = Networking(
-      '$openmapurl?lat=${mylocation.latitude}&lon=${ mylocation.longtiude}&appid=$APIkey&units=metric');
+  Future<dynamic> gelocationweather() async {
+    Location location = Location();
+    await location.getCurrentlocation();
 
-  var weatherdata = await helper.getdata();
-  return weatherdata;
-}
+    Networking networkHelper = Networking(
+        '$openmapurl?lat=${location.latitude}&lon=${location.longtiude}&appid=$APIkey&units=metric');
+
+    var weatherData = await networkHelper.getdata();
+    return weatherData;
+  }
 
   String getWeatherIcon(int condition) {
     if (condition < 300) {
