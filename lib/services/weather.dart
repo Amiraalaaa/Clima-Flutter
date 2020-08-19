@@ -7,8 +7,8 @@ class WeatherModel {
   Future<dynamic> Getcityname(String cityname) async {
     Networking helper =
         Networking('$openmapurl?q=$cityname&appid=$APIkey&units=metric');
-    var weatherdata = await helper.getdata();
-    return weatherdata;
+    var theweatherdata = await helper.getdata();
+    return theweatherdata;
   }
 
   Future<dynamic> gelocationweather() async {
